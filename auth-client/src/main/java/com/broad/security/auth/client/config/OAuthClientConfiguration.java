@@ -1,16 +1,12 @@
 package com.broad.security.auth.client.config;
 
 import com.broad.security.auth.common.config.BaseDataSourceConfiguration;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 import javax.sql.DataSource;
 
@@ -31,13 +27,12 @@ public class OAuthClientConfiguration extends BaseDataSourceConfiguration {
     @Value("${spring.datasource.password}")
     private String password;
 
-
     @Value("${spring.boot.profile:local}")
     private String profile;
 
     @Bean("clientDataSource")
     public DataSource clientDatasource() throws Exception {
-        return super.baseDatasource(this.url, this.driverClassName, this.userName, this.password);
+        return super.baseDatasource(this.url, this.driverClassName, this.userName, this.password,"select * from client_user_info");
     }
 
 
@@ -45,6 +40,7 @@ public class OAuthClientConfiguration extends BaseDataSourceConfiguration {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(this.clientDatasource()).passwordEncoder(new BCryptPasswordEncoder()).withClient("clientApp").secret("123456").authorizedGrantTypes("client_credentials").scopes("devops");
     }
+
 
 
 

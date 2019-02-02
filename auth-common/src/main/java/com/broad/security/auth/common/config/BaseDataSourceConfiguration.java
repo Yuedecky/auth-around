@@ -35,12 +35,13 @@ public class BaseDataSourceConfiguration extends AuthorizationServerConfigurerAd
     public static final String SQL_SESSION_FACTORY_NAME = "commonSqlSessionFactory";
 
 
-    public DataSource baseDatasource(String url,String driverClassName,String userName,String password) throws SQLException {
+    public DataSource baseDatasource(String url,String driverClassName,String userName,String password,String connectionTestQuery) throws SQLException {
         if (StringUtils.isEmpty(url)) {
             throw new ApplicationContextException("Default s Database connection pool is not configured correctly");
         }
         HikariDataSource druidDataSource = new HikariDataSource();
         druidDataSource.setJdbcUrl(url);
+        druidDataSource.setConnectionTestQuery(connectionTestQuery);
         druidDataSource.setDriverClassName(driverClassName);
         druidDataSource.setUsername(userName);
         druidDataSource.setPassword(password);

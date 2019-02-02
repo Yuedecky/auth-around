@@ -24,9 +24,10 @@ public class WebMvcConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/index.html").permitAll().anyRequest().authenticated().and()
-                .formLogin().and()
-                .logout().permitAll().and()
-                .csrf().disable();
+        http.authorizeRequests().antMatchers("/", "/home.html").permitAll().anyRequest().authenticated()
+                .and().formLogin().loginPage("/login").permitAll().and()
+                .requestMatchers()
+                .antMatchers("/api/**").and()
+                .csrf().disable().logout().permitAll();
     }
 }

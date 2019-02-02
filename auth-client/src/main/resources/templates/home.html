@@ -5,7 +5,7 @@
     <title>client app</title>
 </head>
 <body>
-<h1>this is your main page</h1>
+<h1>this is your index page</h1>
 <table>
     <tr>
         <td><b>That's your entries</b></td>
@@ -14,6 +14,7 @@
         <td th:text="${entry.value}">value</td>
     </tr>
 </table>
+
 <h3>your userinfo from [UserInfo Application]</h3>
 <table>
     <tr>
@@ -22,7 +23,7 @@
     </tr>
     <tr>
         <td><b>email</b></td>
-        <td th:text="${userInfo.email}">email</td>
+        <td th:text="${userInfo.detail}">email</td>
     </tr>
 </table>
 </body>

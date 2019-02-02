@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <form class="form-login" method="post" action="/login">
+        <h2 class="form-login-heading">login in</h2>
+        <div class="alert alert-danger" role="alert">invalid credentials</div>
+        <p>
+            <label for="username" class="sr-only">username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">login in</button>
+    </form>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.broad.security.auth.server.config;
 
 import com.broad.security.auth.common.config.BaseDataSourceConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,7 +45,7 @@ public class OAuthServerConfiguration extends BaseDataSourceConfiguration {
 
     @Bean("serverDatasource")
     public DataSource serverDatasource() throws Exception {
-        return super.baseDatasource(this.url, this.driverClassName, this.userName, this.password);
+        return super.baseDatasource(this.url, this.driverClassName, this.userName, this.password,"select * from user_info");
     }
 
     @Bean("serverSqlSessionFactory")
@@ -52,6 +53,11 @@ public class OAuthServerConfiguration extends BaseDataSourceConfiguration {
         return super.baseSqlSessionFactory(this.serverDatasource(), this.profile, "com/broad/security/auth/server/mapper/*.mapper");
     }
 
+
+    @Bean("serverSqlTemplate")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("serverSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+        return super.baseSqlSessionTemplate(sqlSessionFactory);
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -61,7 +67,7 @@ public class OAuthServerConfiguration extends BaseDataSourceConfiguration {
 
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.authenticationManager(authenticationManager);
     }
 }

@@ -49,12 +49,12 @@ public class DevOpsController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String index() {
         return "index";
     }
 
-    @GetMapping("/mainpage")
-    public ModelAndView mainpage() {
+    @GetMapping("/home")
+    public ModelAndView home() {
         ClientUserDetails userDetails = (ClientUserDetails) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         ClientUserInfo clientUser = userDetails.getClientUser();
@@ -68,7 +68,7 @@ public class DevOpsController {
                 new Entry("entry 1"),
                 new Entry("entry 2")));
 
-        ModelAndView mv = new ModelAndView("mainpage");
+        ModelAndView mv = new ModelAndView("home");
         mv.addObject("user", clientUser);
 
         tryToGetUserInfo(mv, clientUser.getAccessToken());
@@ -81,16 +81,15 @@ public class DevOpsController {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add("Authorization", "Bearer " + token);
         String endpoint = "http://localhost:8089/api/userinfo";
-
         try {
-            ResponseEntity<UserInfo> userInfo = restTemplate.getForEntity(endpoint, UserInfo.class);
+            ResponseEntity<UserInfo> userInfo = restTemplate.exchange(new RequestEntity<>(headers,HttpMethod.GET,URI.create(endpoint)),UserInfo.class);
             if (userInfo.getStatusCode().is2xxSuccessful()) {
                 mv.addObject("userInfo", userInfo.getBody());
             } else {
                 throw new RuntimeException("it was not possible to retrieve user profile");
             }
         } catch (HttpClientErrorException e) {
-            throw new RuntimeException("it was not possible to retrieve user profile");
+            throw new RuntimeException(e.getMessage());
         }
     }
 
