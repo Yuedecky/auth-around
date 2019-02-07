@@ -2,6 +2,7 @@ package com.broad.security.spring.roadmap.dao;
 
 import com.broad.security.spring.roadmap.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -11,11 +12,15 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByUsernameCaseInsensitive(@Param("username") String username);
 
     @Query
-    User findByEmail(String email);
+    User findByEmail(@Param("email") String email);
 
     @Query
-    User findByEmailAndActivationKey(String email, String activationKey);
+    User findByEmailAndActivationKey(@Param("email") String email, @Param("activationKey") String activationKey);
 
     @Query
-    User findByEmailAndResetPasswordKey(String email, String resetPasswordKey);
+    User findByEmailAndResetPasswordKey(@Param("email") String email,@Param("resetPasswordKey") String resetPasswordKey);
+
+    @Modifying
+    @Query("update User set password=:password where username=:username")
+    void updatePasswordByNameCaseSensitive(@Param("username") String name,@Param("password") String password);
 }
