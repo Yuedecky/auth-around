@@ -1,6 +1,6 @@
 package com.broad.security.auth.server.config;
 
-import com.broad.security.auth.common.config.BaseDataSourceConfiguration;
+import com.broad.security.auth.core.config.BaseDataSourceConfiguration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;

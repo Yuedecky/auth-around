@@ -14,9 +14,19 @@
     <name>auth-around</name>
 
     <properties>
+        <auth.project.version>0.0.1-SNAPSHOT</auth.project.version>
+        <mybatis.version>3.5.0</mybatis.version>
+        <mybatis.spring.version>2.0.0</mybatis.spring.version>
+        <mybatis.spring.boot.starter.version>2.0.0</mybatis.spring.boot.starter.version>
         <java.version>1.8</java.version>
         <mybatis.plus.version>3.0.6</mybatis.plus.version>
         <spring.oauth2.version>2.2.2.RELEASE</spring.oauth2.version>
+        <spring.security.core.version>5.1.3.RELEASE</spring.security.core.version>
+        <spring-security-oauth2.version>2.3.3.RELEASE</spring-security-oauth2.version>
+        <spring.social.version>1.1.6.RELEASE</spring.social.version>
+        <spring.security.jwt.version>1.0.10.RELEASE</spring.security.jwt.version>
+        <spring.session.core.version>2.1.2.RELEASE</spring.session.core.version>
+        <spring.security.web.version>5.1.3.RELEASE</spring.security.web.version>
     </properties>
 
     <dependencies>
@@ -90,11 +100,11 @@
     </dependencyManagement>
 
     <modules>
-        <module>auth-client</module>
+        <module>auth-app</module>
         <module>auth-server</module>
-        <module>auth-common</module>
-        <module>jwt-auth-server</module>
-        <module>spring-roadmap</module>
+        <module>auth-core</module>
+        <module>auth-browser</module>
+        <module>auth-sample</module>
     </modules>
 
 </project>
