@@ -10,4 +10,5 @@ public class OAuthEnv {
     private String secret;
 
     private Integer tokenValidityInSeconds;
+
 }
