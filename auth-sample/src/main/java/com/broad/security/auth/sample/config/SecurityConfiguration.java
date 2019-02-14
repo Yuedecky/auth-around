@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+
     @Resource
     private UserDetailsService userDetailsService;
 

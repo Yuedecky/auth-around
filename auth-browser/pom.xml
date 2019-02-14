@@ -6,8 +6,9 @@
         <groupId>com.broad.security</groupId>
         <artifactId>auth-around</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <packaging>pom</packaging>
+
     <artifactId>auth-browser</artifactId>
     <version>${auth.project.version}</version>
     <name>auth-browser</name>

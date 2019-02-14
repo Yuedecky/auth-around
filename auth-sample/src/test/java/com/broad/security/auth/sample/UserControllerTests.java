@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,7 +18,6 @@ import javax.annotation.Resource;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class UserControllerTests {
-
 
     @Resource
     private WebApplicationContext webApplicationContext;
@@ -45,5 +43,13 @@ public class UserControllerTests {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status()
                 .is(HttpStatus.UNAUTHORIZED.value()));
 //        .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
+
+    @Test
+    public void order() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/hello/order").contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        );
     }
 }

@@ -3,7 +3,6 @@ package com.broad.security.auth.sample.config;
 import com.broad.security.auth.sample.config.customer.CustomAuthenticationEntryPoint;
 import com.broad.security.auth.sample.config.customer.CustomerLogoutSuccessHandler;
 import com.broad.security.auth.sample.config.customer.IgnoreUrlProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
