@@ -15,5 +15,5 @@ spring:
       preferred-json-mapper: jackson
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
+    prefix: classpath:/resources/
     suffix: .html

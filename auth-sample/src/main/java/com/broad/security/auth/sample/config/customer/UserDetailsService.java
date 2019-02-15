@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,10 +25,13 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        LOGGER.debug("Authenticating {}", username);
+        LOGGER.debug("Authenticating user: {}", username);
         String lowercaseLogin = username.toLowerCase();
 
         User userFromDatabase;
@@ -48,6 +52,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getName());
             grantedAuthorities.add(grantedAuthority);
         }
-        return new org.springframework.security.core.userdetails.User(userFromDatabase.getUsername(), userFromDatabase.getPassword(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(userFromDatabase.getUsername(),
+                passwordEncoder.encode("admin"), grantedAuthorities);
     }
 }
