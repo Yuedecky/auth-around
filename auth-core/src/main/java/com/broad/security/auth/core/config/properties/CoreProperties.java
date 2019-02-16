@@ -13,14 +13,24 @@ public class CoreProperties {
     @Valid
     private BrowserProperties browser = new BrowserProperties();
 
+    @Valid
+    private CodeProperties codeProperties = new CodeProperties();
+
+    public CodeProperties getCodeProperties() {
+        return codeProperties;
+    }
+
+    public void setCodeProperties(CodeProperties codeProperties) {
+        this.codeProperties = codeProperties;
+    }
+
     public BrowserProperties getBrowser() {
         return browser;
     }
 
-    public void setBrowser(BrowserProperties browser){
+    public void setBrowser(BrowserProperties browser) {
         this.browser = browser;
     }
-
 
 
 }

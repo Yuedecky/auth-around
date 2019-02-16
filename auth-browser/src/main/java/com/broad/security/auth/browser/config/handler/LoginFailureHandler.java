@@ -1,13 +1,11 @@
 package com.broad.security.auth.browser.config.handler;
 
-import com.alibaba.fastjson.JSON;
 import com.broad.security.auth.core.config.enums.LoginType;
 import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.web.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;

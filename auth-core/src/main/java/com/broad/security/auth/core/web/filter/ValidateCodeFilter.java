@@ -1,14 +1,17 @@
 package com.broad.security.auth.core.web.filter;
 
 import com.broad.security.auth.core.code.ImageCode;
+import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.web.ValidateCodeController;
 import com.broad.security.auth.core.web.exception.ValidateCodeException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -19,22 +22,45 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
-public class ValidateCodeFilter extends OncePerRequestFilter {
+public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
+    @Autowired
+    private CoreProperties coreProperties;
+
+    private List<String> urlsToFilter;
 
     public ValidateCodeFilter(AuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
     @Override
+    public void afterPropertiesSet() throws ServletException {
+        super.afterPropertiesSet();
+        urlsToFilter = coreProperties.getCodeProperties().getImage().getUrls();
+        if(urlsToFilter == null){
+            urlsToFilter = new ArrayList<>();
+        }
+        urlsToFilter.add("/authentication/form");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/api/authentication/form", request.getRequestURI()) &&
-                StringUtils.equalsIgnoreCase(request.getMethod(), HttpMethod.POST.name())) {
+        boolean filter = false;
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        for (String url : urlsToFilter) {
+            if (pathMatcher.match(url, request.getRequestURI())) {
+                filter = true;
+            }
+        }
+        if (filter) {
             try {
                 validateCode(new ServletWebRequest(request));
             } catch (ValidateCodeException e) {
@@ -42,7 +68,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
                 return;
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
     private void validateCode(ServletWebRequest webRequest) throws ServletRequestBindingException {

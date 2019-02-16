@@ -1,7 +1,8 @@
 package com.broad.security.auth.core.web;
 
 import com.broad.security.auth.core.code.ImageCode;
-import com.broad.security.auth.core.code.ImgCodeUtils;
+import com.broad.security.auth.core.code.ValidateCodeProducer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +22,14 @@ public class ValidateCodeController {
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
+    @Autowired
+    private ValidateCodeProducer validateCodeGenerator;
+
     @RequestMapping("/image")
     public void createCode(HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException {
-        ImageCode code = ImgCodeUtils.createImage();
-        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,code);
-        ImageIO.write(code.getBufferedImage(),"JPEG",httpServletResponse.getOutputStream());
+        ImageCode code = validateCodeGenerator.createImage(new ServletWebRequest(request));
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, code);
+        ImageIO.write(code.getBufferedImage(), "JPEG", httpServletResponse.getOutputStream());
     }
 }
 

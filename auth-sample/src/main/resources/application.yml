@@ -77,6 +77,15 @@ auth:
       login-page: /demo-login.html
       login-type: JSON
       redirect-url: /index.html
+    code:
+      image:
+        length: 4
+        width: 30
+        height: 60
+        font-size: 24
+        expire-in: 60
+        miss: 5
+        urls: /api/logins.html,/api/authentication/form
 logging:
   level:
     root: INFO
