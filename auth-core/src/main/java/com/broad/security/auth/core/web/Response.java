@@ -2,8 +2,10 @@ package com.broad.security.auth.core.web;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Response<T> {
+public class Response<T> implements Serializable {
 
     private T data;
 

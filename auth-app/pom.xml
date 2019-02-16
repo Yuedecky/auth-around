@@ -68,13 +68,6 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.broad.security</groupId>
-            <artifactId>auth-server</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
 
     </dependencies>
 

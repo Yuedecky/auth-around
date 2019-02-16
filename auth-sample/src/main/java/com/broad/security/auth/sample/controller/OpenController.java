@@ -1,34 +1,40 @@
 package com.broad.security.auth.sample.controller;
 
-import com.broad.security.auth.sample.config.dto.DeferredResultHolder;
 import com.broad.security.auth.sample.config.dto.MockQueue;
+import com.broad.security.auth.sample.config.dto.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import javax.annotation.Resource;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-@RestController(value = "/hello/")
+@RestController
+@RequestMapping(value = "/hello")
 @Slf4j
 public class OpenController {
-    @Resource
+
+
+    @Autowired
     private MockQueue mockQueue;
 
-    @Resource
-    private DeferredResultHolder deferredResultHolder;
-
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/no",method = RequestMethod.GET)
     public DeferredResult<String> sayHello() {
-        log.info("main thread starts");
+        log.info("sayHello's main thread starts");
         String orderNo = RandomStringUtils.randomAlphabetic(16);
-        mockQueue.setPlaceOrder(orderNo);
-        DeferredResult<String> result = new DeferredResult<>();
-        deferredResultHolder.getContainer().put(orderNo, result);
-        log.info("main thread ends");
+        Task<String> taskOrder = new Task<>(orderNo);
+        DeferredResult<String> result = new DeferredResult<>(2000L);
+        taskOrder.setResult(result);
+        result.onTimeout(() -> {
+            log.error("task timeout,taskNo:{}", orderNo);
+            taskOrder.setTimeout(true);
+            result.setErrorResult("task timeout,taskNo:" + orderNo);
+        });
+        mockQueue.putTask(taskOrder);
+        mockQueue.execute();
+        log.info("sayHello's main thread ends");
         return result;
     }
 

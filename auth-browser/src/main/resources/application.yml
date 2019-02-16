@@ -1,0 +1,4 @@
+#auth:
+#  security:
+#    browser:
+#      default-login-page: /logins.html
