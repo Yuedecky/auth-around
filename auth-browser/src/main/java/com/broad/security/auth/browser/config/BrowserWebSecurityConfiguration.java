@@ -4,6 +4,8 @@ import com.broad.security.auth.browser.config.handler.LoginFailureHandler;
 import com.broad.security.auth.browser.config.handler.LoginSuccessHandler;
 import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.config.properties.IgnoreUrlProperties;
+import com.broad.security.auth.core.web.ValidateCodeController;
+import com.broad.security.auth.core.web.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +14,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
 
@@ -37,12 +40,16 @@ public class BrowserWebSecurityConfiguration extends WebSecurityConfigurerAdapte
     @Autowired
     private LoginFailureHandler loginFailureHandler;
 
+
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         List<String> ignoreUrls = ignoreUrlProperties.getIgnoreUrls();
         ignoreUrls.add(defaultLoginPage);
         ignoreUrls.add(coreProperties.getBrowser().getLoginPage());
-        http.exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and().formLogin().failureHandler(loginFailureHandler)
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and().formLogin().failureHandler(loginFailureHandler)
                 .successHandler(successHandler)
                 .loginProcessingUrl("/authentication/form").and().logout().logoutUrl("/authentication/logout").and()
                 .authorizeRequests().antMatchers(ignoreUrls.toArray(new String[ignoreUrls.size()])).permitAll().anyRequest().authenticated()

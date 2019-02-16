@@ -1,30 +1,40 @@
 package com.broad.security.auth.core.web;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
-@Data
-public class Response<T> implements Serializable {
+@Getter
+@Setter
+public class Response implements Serializable {
 
-    private T data;
+    private Object data;
 
     private int code;
 
-    public Response(T data) {
+    public Response(Object data) {
         this.data = data;
     }
 
-    public Response(T data, int code) {
+    public Response(Object data, int code) {
         this.data = data;
         this.code = code;
     }
 
-    public static <T> Response<T> success(T data) {
-        return new Response<>(data);
+    public static Response success(Object data) {
+        return new Response(data, HttpStatus.OK.value());
     }
 
-    public static <T> Response<T> error(T data, int code) {
-        return new Response<>(data, code);
+    public static Response error(Object data, int code) {
+        return new Response(data, code);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }
