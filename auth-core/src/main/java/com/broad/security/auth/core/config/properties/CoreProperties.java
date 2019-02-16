@@ -13,6 +13,10 @@ public class CoreProperties {
     @Valid
     private BrowserProperties browser = new BrowserProperties();
 
+
+    @Valid
+    private SmsCodeProperties smsCodeProperties = new SmsCodeProperties();
+
     @Valid
     private CodeProperties codeProperties = new CodeProperties();
 
@@ -33,4 +37,11 @@ public class CoreProperties {
     }
 
 
+    public SmsCodeProperties getSmsCodeProperties() {
+        return smsCodeProperties;
+    }
+
+    public void setSmsCodeProperties(SmsCodeProperties smsCodeProperties) {
+        this.smsCodeProperties = smsCodeProperties;
+    }
 }

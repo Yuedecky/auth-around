@@ -72,7 +72,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     private void validateCode(ServletWebRequest webRequest) throws ServletRequestBindingException {
-        ImageCode code = (ImageCode) sessionStrategy.getAttribute(webRequest, ValidateCodeController.SESSION_KEY);
+        ImageCode code = (ImageCode) sessionStrategy.getAttribute(webRequest, ValidateCodeController.SESSION_KEY_IMAGE_CODE);
         String codeInRequest = ServletRequestUtils.getStringParameter(webRequest.getRequest(), "image");
         if (StringUtils.isBlank(codeInRequest)) {
             throw new ValidateCodeException("image code cannot be null");
@@ -81,12 +81,12 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
             throw new ValidateCodeException("image code not exists");
         }
         if (code.isExpired()) {
-            sessionStrategy.removeAttribute(webRequest, ValidateCodeController.SESSION_KEY);
+            sessionStrategy.removeAttribute(webRequest, ValidateCodeController.SESSION_KEY_IMAGE_CODE);
             throw new ValidateCodeException("image code has expired");
         }
         if (!StringUtils.equalsIgnoreCase(code.getCode(), codeInRequest)) {
             throw new ValidateCodeException("image code not matches");
         }
-        sessionStrategy.removeAttribute(webRequest, ValidateCodeController.SESSION_KEY);
+        sessionStrategy.removeAttribute(webRequest, ValidateCodeController.SESSION_KEY_IMAGE_CODE);
     }
 }

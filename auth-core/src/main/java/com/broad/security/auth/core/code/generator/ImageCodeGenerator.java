@@ -1,5 +1,7 @@
-package com.broad.security.auth.core.code;
+package com.broad.security.auth.core.code.generator;
 
+import com.broad.security.auth.core.code.BaseCode;
+import com.broad.security.auth.core.code.ImageCode;
 import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.config.properties.ImageCodeProperties;
 import lombok.Data;
@@ -17,9 +19,10 @@ import java.util.Random;
 
 
 @Data
-public class ImageCodeGenerator implements ValidateCodeProducer {
+@Component(value = "imageCodeGenerator")
+public class ImageCodeGenerator implements ValidateCodeRule {
 
-
+    @Autowired
     private CoreProperties coreProperties;
     // 验证码字符集
     private static final char[] chars = {
@@ -38,7 +41,7 @@ public class ImageCodeGenerator implements ValidateCodeProducer {
      * 生成随机验证码及图片
      */
     @Override
-    public ImageCode createImage(ServletWebRequest servletWebRequest) {
+    public BaseCode createRule(ServletWebRequest servletWebRequest) {
         int width, height, size, fontSize, miss;
         ImageCodeProperties imageCodeProperties = coreProperties.getCodeProperties().getImage();
         width = ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "image.width", imageCodeProperties.getWidth()) <= 0 ? 60 :

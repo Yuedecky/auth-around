@@ -70,7 +70,7 @@ authentication:
     clientid: auth
     secret: secret
     tokenValidityInSeconds: 1800
-    ignoreUrls: /register,/h2,/activate,/hello/**,/code/image
+    ignoreUrls: /register,/h2,/activate,/hello/**,/code/image,/logins.html,/sms.html
 auth:
   security:
     browser:

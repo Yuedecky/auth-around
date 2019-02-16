@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h2>登陆页面</h2>
+    <form action="/api/authentication/form" method="post">
+        <table>
+            <tr>
+                <td>手机号：</td>
+                <td><input type="text" name="mobile" value="12312223333"></td>
+            </tr>
+            <tr>
+                <td>短信验证码：</td>
+                <td><input type="text" name="smsCode"><a href="/api/code/sms?mobile=13412223333"></a> </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">登陆</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+</body>
+</html>
