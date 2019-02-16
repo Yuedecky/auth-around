@@ -4,7 +4,6 @@ import com.broad.security.auth.browser.config.handler.LoginFailureHandler;
 import com.broad.security.auth.browser.config.handler.LoginSuccessHandler;
 import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.config.properties.IgnoreUrlProperties;
-import com.broad.security.auth.core.web.ValidateCodeController;
 import com.broad.security.auth.core.web.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,10 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Configuration
@@ -44,6 +46,10 @@ public class BrowserWebSecurityConfiguration extends WebSecurityConfigurerAdapte
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
 
+
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         List<String> ignoreUrls = ignoreUrlProperties.getIgnoreUrls();
@@ -51,11 +57,20 @@ public class BrowserWebSecurityConfiguration extends WebSecurityConfigurerAdapte
         ignoreUrls.add(coreProperties.getBrowser().getLoginPage());
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and().formLogin().failureHandler(loginFailureHandler)
                 .successHandler(successHandler)
-                .loginProcessingUrl("/authentication/form").and().logout().logoutUrl("/authentication/logout").and()
+                .loginProcessingUrl("/authentication/form").and().logout().logoutUrl("/authentication/logout")
+                .and().rememberMe().tokenRepository(tokenRepository())
+                .tokenValiditySeconds(coreProperties.getBrowser().getRememberMeSeconds()).userDetailsService(userDetailsService()).and()
                 .authorizeRequests().antMatchers(ignoreUrls.toArray(new String[ignoreUrls.size()])).permitAll().anyRequest().authenticated()
                 .and().csrf().disable();
     }
 
+    @Bean
+    public PersistentTokenRepository tokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
+    }
 
     @Bean
     public MappingJackson2HttpMessageConverter messageConverter() {

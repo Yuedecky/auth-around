@@ -77,6 +77,7 @@ auth:
       login-page: /demo-login.html
       login-type: JSON
       redirect-url: /index.html
+      remember-me-seconds: 3600
     code:
       image:
         length: 4

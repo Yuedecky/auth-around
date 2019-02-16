@@ -11,6 +11,16 @@ public class BrowserProperties {
 
     private String redirectUrl;
 
+    private int rememberMeSeconds;
+
+    public int getRememberMeSeconds() {
+        return rememberMeSeconds;
+    }
+
+    public void setRememberMeSeconds(int rememberMeSeconds) {
+        this.rememberMeSeconds = rememberMeSeconds;
+    }
+
     public String getRedirectUrl() {
         return redirectUrl;
     }
@@ -35,7 +45,6 @@ public class BrowserProperties {
     public void setLoginPage(String loginPage) {
         this.loginPage = loginPage;
     }
-
 
 
 }
