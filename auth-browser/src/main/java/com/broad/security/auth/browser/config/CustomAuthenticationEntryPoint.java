@@ -27,7 +27,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         LOGGER.error("pre-authenticated entry point called ,error:{}",authException.getMessage());
-        LOGGER.info("authType:{},queryString:{}", request.getAuthType(), request.getQueryString());
+        LOGGER.info("requestUrl:{},queryString:{}", request.getRequestURL(), request.getQueryString());
         response.sendRedirect(contextPath + coreProperties.getBrowser().getLoginPage());
     }
 }
