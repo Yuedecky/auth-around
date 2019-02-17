@@ -70,7 +70,7 @@ authentication:
     clientid: auth
     secret: secret
     tokenValidityInSeconds: 1800
-    ignoreUrls: /register,/h2,/activate,/hello/**,/api/code/image,/logins.html,/sms.html,/api/code/sms,/api/authentication/sms
+    ignoreUrls: /register,/h2,/activate,/hello/**,/api/code/image,/logins.html,/sms.html,/api/authentication/mobile,/api/code/sms
 auth:
   security:
     browser:
@@ -90,7 +90,7 @@ auth:
       sms:
         length: 6
         expire-in: 300
-        urls: /api/code/sms,/api/authentication/sms
+        urls: /api/authentication/mobile
 logging:
   level:
     root: INFO

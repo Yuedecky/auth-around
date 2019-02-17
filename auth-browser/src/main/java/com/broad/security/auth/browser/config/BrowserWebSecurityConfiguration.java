@@ -5,8 +5,8 @@ import com.broad.security.auth.browser.config.handler.LoginSuccessHandler;
 import com.broad.security.auth.core.config.SmsCodeAuthenticationSecurityConfiguration;
 import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.config.properties.IgnoreUrlProperties;
-import com.broad.security.auth.core.mobile.filter.SmsCodeAuthenticationFilter;
 import com.broad.security.auth.core.web.filter.ImageCodeFilter;
+import com.broad.security.auth.core.web.filter.SmsCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +49,7 @@ public class BrowserWebSecurityConfiguration extends WebSecurityConfigurerAdapte
     private ImageCodeFilter imageCodeFilter;
 
     @Autowired
-    private SmsCodeAuthenticationFilter smsCodeAuthenticationFilter;
+    private SmsCodeFilter smsCodeFilter;
 
     @Autowired
     private DataSource dataSource;
@@ -63,18 +63,22 @@ public class BrowserWebSecurityConfiguration extends WebSecurityConfigurerAdapte
         List<String> ignoreUrls = ignoreUrlProperties.getIgnoreUrls();
         ignoreUrls.add(defaultLoginPage);
         ignoreUrls.add(coreProperties.getBrowser().getLoginPage());
+        String[] urls = ignoreUrls.toArray(new String[ignoreUrls.size()]);
         http.addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(smsCodeAuthenticationFilter,UsernamePasswordAuthenticationFilter.class).exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and().formLogin().failureHandler(loginFailureHandler)
+                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and().formLogin().failureHandler(loginFailureHandler)
                 .successHandler(successHandler)
                 .and().logout().logoutUrl("/api/authentication/logout")
                 .and().rememberMe().tokenRepository(tokenRepository())
                 .tokenValiditySeconds(coreProperties.getBrowser().getRememberMeSeconds()).userDetailsService(userDetailsService()).and()
-                .authorizeRequests().antMatchers(ignoreUrls.toArray(new String[ignoreUrls.size()])).permitAll().anyRequest().authenticated()
-                .and().csrf().disable().apply(smsCodeAuthenticationSecurityConfiguration);
+                .authorizeRequests().antMatchers(urls).permitAll().anyRequest().authenticated()
+                .and().csrf().disable()
+                .apply(smsCodeAuthenticationSecurityConfiguration);
     }
 
     /**
      * 记住我需要存储
+     *
      * @return
      */
     @Bean

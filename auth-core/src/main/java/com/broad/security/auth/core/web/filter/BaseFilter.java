@@ -5,7 +5,6 @@ import com.broad.security.auth.core.config.properties.CoreProperties;
 import com.broad.security.auth.core.web.exception.ValidateCodeException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.util.AntPathMatcher;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashSet;
 
 public abstract class BaseFilter extends OncePerRequestFilter implements InitializingBean {
 
