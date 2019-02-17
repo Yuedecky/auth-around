@@ -1,19 +1,21 @@
 package com.broad.security.auth.core.config.properties;
 
+import java.util.Set;
+
 public class SmsCodeProperties {
 
     private int length;
 
     private int expireIn;
 
-    private String url;
+    private Set<String> urls;
 
-    public String getUrl() {
-        return url;
+    public Set<String> getUrls() {
+        return urls;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrls(Set<String> urls) {
+        this.urls = urls;
     }
 
     public int getExpireIn() {

@@ -43,7 +43,7 @@ public class ImageCodeGenerator implements ValidateCodeRule {
     @Override
     public BaseCode createRule(ServletWebRequest servletWebRequest) {
         int width, height, size, fontSize, miss;
-        ImageCodeProperties imageCodeProperties = coreProperties.getCodeProperties().getImage();
+        ImageCodeProperties imageCodeProperties = coreProperties.getCode().getImage();
         width = ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "image.width", imageCodeProperties.getWidth()) <= 0 ? 60 :
                 ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "image.width", imageCodeProperties.getWidth());
         height = ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "image.height", imageCodeProperties.getHeight()) <= 0 ? 30 :

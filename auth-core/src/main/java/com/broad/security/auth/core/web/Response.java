@@ -14,7 +14,7 @@ public class Response implements Serializable {
 
     private Object data;
 
-    private int code;
+    private int error =0 ;
 
     public Response(Object data) {
         this.data = data;
@@ -22,15 +22,15 @@ public class Response implements Serializable {
 
     public Response(Object data, int code) {
         this.data = data;
-        this.code = code;
+        this.error = code;
     }
 
     public static Response success(Object data) {
         return new Response(data, HttpStatus.OK.value());
     }
 
-    public static Response error(Object data, int code) {
-        return new Response(data, code);
+    public static Response error(Object data) {
+        return new Response(data, 1);
     }
 
     @Override

@@ -17,8 +17,8 @@ public class SmsCodeGenerator implements ValidateCodeRule {
 
     @Override
     public BaseCode createRule(ServletWebRequest servletWebRequest) {
-        String code = RandomStringUtils.randomNumeric(coreProperties.getSmsCodeProperties().getLength());
-        return new SmsCode(code, LocalDateTime.now().plusSeconds(coreProperties.getSmsCodeProperties().getExpireIn()));
+        String code = RandomStringUtils.randomNumeric(coreProperties.getCode().getSms().getLength());
+        return new SmsCode(code, LocalDateTime.now().plusSeconds(coreProperties.getCode().getSms().getExpireIn()));
     }
 
     @Override
