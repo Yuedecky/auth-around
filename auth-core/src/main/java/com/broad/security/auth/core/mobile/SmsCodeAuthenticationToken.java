@@ -18,9 +18,9 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     // ===================================================================================================
 
     /**
-     * This constructor can be safely used by any code that wishes to create a
-     * <code>UsernamePasswordAuthenticationToken</code>, as the {@link #isAuthenticated()}
-     * will return <code>false</code>.
+     * This constructor can be safely used by any validate that wishes to create a
+     * <validate>UsernamePasswordAuthenticationToken</validate>, as the {@link #isAuthenticated()}
+     * will return <validate>false</validate>.
      *
      */
     public SmsCodeAuthenticationToken(String mobile) {
@@ -29,9 +29,9 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * This constructor should only be used by <code>AuthenticationManager</code> or
-     * <code>AuthenticationProvider</code> implementations that are satisfied with
-     * producing a trusted (i.e. {@link #isAuthenticated()} = <code>true</code>)
+     * This constructor should only be used by <validate>AuthenticationManager</validate> or
+     * <validate>AuthenticationProvider</validate> implementations that are satisfied with
+     * producing a trusted (i.e. {@link #isAuthenticated()} = <validate>true</validate>)
      * authentication token.
      *
      * @param principal

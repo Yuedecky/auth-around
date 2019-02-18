@@ -1,6 +1,6 @@
 package com.broad.security.auth.client.config;
 
-import com.broad.security.auth.core.config.BaseDataSourceConfiguration;
+import com.broad.security.auth.core.properties.BaseDataSourceConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

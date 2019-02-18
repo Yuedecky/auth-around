@@ -46,7 +46,7 @@ public class OAuthTokenServiceImpl implements IOAuthTokenService {
 
         Map<String, String> authParameters = new HashMap<>();
         authParameters.put("client_id", "clientapp");
-        authParameters.put("response_type", "code");
+        authParameters.put("response_type", "validate");
         authParameters.put("redirect_uri",
                 getEncodedUrl("http://localhost:9001/callback"));
         authParameters.put("scope", getEncodedUrl("read_userinfo"));
