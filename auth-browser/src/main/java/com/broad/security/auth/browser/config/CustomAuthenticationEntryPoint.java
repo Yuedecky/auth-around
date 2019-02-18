@@ -1,6 +1,6 @@
 package com.broad.security.auth.browser.config;
 
-import com.broad.security.auth.core.config.properties.CoreProperties;
+import com.broad.security.auth.core.properties.CoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

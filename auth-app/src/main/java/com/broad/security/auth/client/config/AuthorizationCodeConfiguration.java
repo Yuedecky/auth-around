@@ -22,7 +22,7 @@ public class AuthorizationCodeConfiguration {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", "authorization_code");
         formData.add("scope", "read_user_info");
-        formData.add("code", authorizationCode);
+        formData.add("validate", authorizationCode);
         formData.add("redirect_uri", "http://localhost:9001/callback");
         return formData;
     }

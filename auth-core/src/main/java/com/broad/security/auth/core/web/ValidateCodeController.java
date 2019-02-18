@@ -1,13 +1,13 @@
 package com.broad.security.auth.core.web;
 
-import com.broad.security.auth.core.code.processor.impl.ImageCodeProcessor;
-import com.broad.security.auth.core.code.processor.impl.SmsCodeProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.broad.security.auth.core.properties.constants.AuthConstants;
+import com.broad.security.auth.core.validate.ValidateCodeProcessorHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,25 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/code")
 public class ValidateCodeController {
 
+    @Resource
+    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
 
-    @Autowired
-    private ImageCodeProcessor imageCodeProcessor;
-
-
-    @Autowired
-    private SmsCodeProcessor smsCodeProcessor;
-
-    @RequestMapping("/image")
-    public void createImageCode(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
-        ServletWebRequest webRequest = new ServletWebRequest(request, httpServletResponse);
-        imageCodeProcessor.createCode(webRequest);
+    @RequestMapping(AuthConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX +"/{type}")
+    public void createCode(HttpServletRequest request, HttpServletResponse httpServletResponse, @PathVariable String type) throws Exception {
+        validateCodeProcessorHolder.findValidateCodeProcessor(type).createCode(new ServletWebRequest(request,httpServletResponse));
     }
 
 
-    @GetMapping(value = "/sms")
-    public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ServletWebRequest webRequest = new ServletWebRequest(request,response);
-        smsCodeProcessor.createCode(webRequest);
-    }
 }
 

@@ -1,4 +1,4 @@
-##data source properties
+##data source constants
 #spring.datasource.url=jdbc:mysql://localhost:3306/auth
 #spring.datasource.username=root
 #spring.datasource.password=123456
@@ -7,7 +7,7 @@
 #spring.datasource.data=classpath:/db/data.db
 ##spring.datasource.driverClassName=com.mysql.jdbc.Driver
 #
-## JPA properties
+## JPA constants
 #spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 #spring.jpa.database=MYSQL
 #spring.jpa.openInView=false
@@ -36,7 +36,7 @@ spring:
     data: classpath:db/data.sql
     dbcp2:
       validation-query: SELECT * from user
-  # JPA properties
+  # JPA constants
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     database: h2
@@ -45,7 +45,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: none
-  # h2 properties
+  # h2 constants
   h2:
     console:
       path: /h2
@@ -60,7 +60,7 @@ spring:
 
 #web server
 server:
-  port: 9090
+  port: 9002
   servlet:
     context-path: /api
 
@@ -70,7 +70,7 @@ authentication:
     clientid: auth
     secret: secret
     tokenValidityInSeconds: 1800
-    ignoreUrls: /register,/h2,/activate,/hello/**,/api/code/image,/logins.html,/sms.html,/api/code/sms,/api/authentication/sms
+    ignoreUrls: /register,/h2,/activate,/hello/**,/api/validate/image,/logins.html,/provider.html,/api/validate/provider,/api/authentication/provider
 auth:
   security:
     browser:
@@ -78,6 +78,10 @@ auth:
       login-type: JSON
       redirect-url: /index.html
       remember-me-seconds: 3600
+      session:
+        max-age: 3600
+        redirect-url: /session-invalidate.html
+        max-sessions: 100
     code:
       image:
         length: 4
@@ -86,11 +90,11 @@ auth:
         font-size: 24
         expire-in: 60
         miss: 5
-        urls: /api/authentication/form
+        url: /api/code/image
       sms:
         length: 6
         expire-in: 300
-        urls: /api/code/sms,/api/authentication/sms
+        url: /api/code/sms
 logging:
   level:
     root: INFO
