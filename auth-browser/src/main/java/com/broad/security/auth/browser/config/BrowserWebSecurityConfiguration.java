@@ -34,8 +34,6 @@ public class BrowserWebSecurityConfiguration extends AbstractChannelSecurityConf
     @Value("${auth.security.browser.default-login-page:/logins.html}")
     private String defaultLoginPage;
 
-    @Autowired
-    private IgnoreUrlProperties ignoreUrlProperties;
 
     @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -45,12 +43,6 @@ public class BrowserWebSecurityConfiguration extends AbstractChannelSecurityConf
 
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
-
-    @Autowired
-    private ImageCodeFilter imageCodeFilter;
-
-    @Autowired
-    private SmsCodeFilter smsCodeFilter;
 
     @Autowired
     private DataSource dataSource;
