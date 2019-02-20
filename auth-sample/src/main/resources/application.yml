@@ -95,6 +95,10 @@ auth:
         length: 6
         expire-in: 300
         url: /api/code/sms
+    social:
+      qq:
+        app-id:
+        app-secret:
 logging:
   level:
     root: INFO

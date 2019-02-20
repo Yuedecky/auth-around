@@ -1,5 +1,7 @@
-package com.broad.security.auth.core.social.qq.api;
+package com.broad.security.auth.core.social.qq;
 
+import com.broad.security.auth.core.social.qq.api.IQQ;
+import com.broad.security.auth.core.social.qq.api.IQQImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.oauth2.OAuth2Template;
 

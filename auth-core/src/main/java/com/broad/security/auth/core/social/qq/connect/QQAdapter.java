@@ -1,7 +1,7 @@
-package com.broad.security.auth.core.social.qq.api.connect;
+package com.broad.security.auth.core.social.qq.connect;
 
 import com.broad.security.auth.core.social.qq.api.IQQ;
-import com.broad.security.auth.core.social.qq.api.QQUserInfo;
+import com.broad.security.auth.core.social.qq.QQUserInfo;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;

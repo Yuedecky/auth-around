@@ -1,4 +1,4 @@
-package com.broad.security.auth.core.social.qq.api;
+package com.broad.security.auth.core.social.qq;
 
 public class QQUserInfo {
     /**

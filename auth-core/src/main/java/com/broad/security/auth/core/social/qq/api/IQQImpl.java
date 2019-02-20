@@ -1,5 +1,6 @@
 package com.broad.security.auth.core.social.qq.api;
 
+import com.broad.security.auth.core.social.qq.QQUserInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;

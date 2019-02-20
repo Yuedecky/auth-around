@@ -16,6 +16,17 @@ public class CoreProperties {
     @Valid
     private CodeProperties code = new CodeProperties();
 
+    @Valid
+    private SocialProperties social = new SocialProperties();
+
+    public SocialProperties getSocial() {
+        return social;
+    }
+
+    public void setSocial(SocialProperties social) {
+        this.social = social;
+    }
+
     public CodeProperties getCode() {
         return code;
     }
