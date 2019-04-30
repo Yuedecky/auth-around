@@ -8,6 +8,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 
 @Component
 public class AuthorizationCodeConfiguration {
@@ -31,7 +32,7 @@ public class AuthorizationCodeConfiguration {
     public HttpHeaders httpHeaders(String clientAuthorization) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.add("Authorization", "Basic" + clientAuthorization);
         return headers;
     }

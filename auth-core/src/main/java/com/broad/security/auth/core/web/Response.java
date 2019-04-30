@@ -1,36 +1,51 @@
 package com.broad.security.auth.core.web;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-public class Response implements Serializable {
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Response<T> implements Serializable {
 
-    private Object data;
+    private T data;
 
-    private int error =0 ;
+    private int error = 0;
 
-    public Response(Object data) {
+    private String responseCode;
+
+    public Response(T data) {
         this.data = data;
     }
 
-    public Response(Object data, int code) {
+    public Response(T data, String code, int error) {
         this.data = data;
-        this.error = code;
+        this.error = error;
+        this.responseCode = code;
     }
 
-    public static Response success(Object data) {
-        return new Response(data, HttpStatus.OK.value());
+    public Response(String responseCode, int error) {
+        this(null, responseCode, error);
     }
 
-    public static Response error(Object data) {
-        return new Response(data, 1);
+    public static <T> Response<T> success(T data) {
+        return new Response<>(data, CommonResponseCode.RC_SUCCESS.getCode(), HttpStatus.OK.value());
+    }
+
+    public static <T> Response<T> error(T data) {
+        return new Response<>(data, CommonResponseCode.RC_ERROR.getCode(), 1);
+    }
+
+    public static <T> Response<T> error(String message) {
+        return new Response<>(message, 1);
+    }
+
+    public static Response error(Object data, String responseMessage) {
+        return new Response<>(data, responseMessage, 1);
     }
 
     @Override
