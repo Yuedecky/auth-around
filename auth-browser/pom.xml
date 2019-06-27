@@ -2,51 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>auth-browser</artifactId>
     <parent>
         <groupId>com.broad.security</groupId>
-        <artifactId>auth-around</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>auth-around-starter</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../auth-around-starter</relativePath>
     </parent>
-    <packaging>jar</packaging>
-
-    <artifactId>auth-browser</artifactId>
-    <version>${auth.project.version}</version>
-    <name>auth-browser</name>
-
 
     <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.broad.security</groupId>
             <artifactId>auth-core</artifactId>
-            <version>${auth.project.version}</version>
+            <version>${auth.around.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>${spring.security.jwt.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-core -->
         <dependency>
             <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-core</artifactId>
-            <version>${spring.session.core.version}</version>
+            <artifactId>spring-session</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
     </dependencies>
 
 

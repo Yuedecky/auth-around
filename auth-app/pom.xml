@@ -2,94 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>auth-app</artifactId>
     <parent>
         <groupId>com.broad.security</groupId>
-        <artifactId>auth-around</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>auth-around-starter</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../auth-around-starter</relativePath>
     </parent>
-    <packaging>pom</packaging>
 
-    <artifactId>auth-app</artifactId>
-    <version>${auth.project.version}</version>
-    <name>auth-app</name>
 
     <dependencies>
         <dependency>
             <groupId>com.broad.security</groupId>
-            <artifactId>auth-core</artifactId>
-            <version>${auth.project.version}</version>
+            <artifactId>auth-browser</artifactId>
+            <version>${auth.around.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.web.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${mybatis.spring.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.sd4324530/fastweixin -->
-        <dependency>
-            <groupId>com.github.sd4324530</groupId>
-            <artifactId>fastweixin</artifactId>
-            <version>${fastwexin.version}</version>
-        </dependency>
-
-
-
-        <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.spring.boot.starter.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>1.4.5.RELEASE</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>${bcprov.version}</version>
-        </dependency>
-
-
     </dependencies>
 
 

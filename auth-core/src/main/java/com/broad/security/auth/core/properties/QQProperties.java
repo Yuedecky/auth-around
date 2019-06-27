@@ -1,6 +1,5 @@
 package com.broad.security.auth.core.properties;
 
-import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 public class QQProperties extends SocialProperties {
 
