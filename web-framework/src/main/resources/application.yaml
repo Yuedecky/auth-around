@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    initialSize: 100
+    minIdle: 5
+    maxActive: 100
+    maxWait: 1000
+    timeBetweenEvictionRunsMillis: 5000
+    minEvictableIdleTimeMillis: 3000
+    validationQuery: 'select 1'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    removeAbandoned: true
+    maxPoolPreparedStatementPerConnectionSize: 100
+    removeAbandonedTimeout: 10000
+    logAbandoned: true
+    url: jdbc:mysql://localhost:3306/auth
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    active: dev
